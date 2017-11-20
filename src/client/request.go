@@ -1,10 +1,10 @@
 package main
 
 import (
-	"net/http"
-	"fmt"
-	"os"
-	"io/ioutil"
+    "net/http"
+    "fmt"
+    "os"
+    "io/ioutil"
     "bytes"
 )
 
@@ -17,11 +17,10 @@ const userAgent = "The Good, The Bad & The Ugly"
 
 func main() {
     /* HTTP Client */
-	client := &http.Client{}
-	response, header := post("http://localhost:8080", client)
-
-	fmt.Println(response)
-	fmt.Printf("%s\n\n", header)
+    client := &http.Client{}
+    response, header := post("http://localhost:8080", client)
+    fmt.Println(response)
+    fmt.Printf("%s\n\n", header)
 }
 
 /**
@@ -34,9 +33,9 @@ func get(uri string, client *http.Client) (string, http.Header) {
     if err != nil {
         fmt.Printf("%s", err)
         os.Exit(1)
-	}
-	req.Header.Set("User-Agent", userAgent)
-	resp, err := client.Do(req)
+    }
+    req.Header.Set("User-Agent", userAgent)
+    resp, err := client.Do(req)
 
     if err != nil {
         fmt.Printf("%s", err)
@@ -44,7 +43,7 @@ func get(uri string, client *http.Client) (string, http.Header) {
     } else {
     	content, header := handleResponse(resp)
     	if showheaders {
-    		return string(content), header
+    	    return string(content), header
     	}
         return string(content), nil
     }
