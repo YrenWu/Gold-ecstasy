@@ -1,11 +1,11 @@
 # Gold Ecstasy
 
 Client et serveur minimalistes en go, communiquant à travers deux conteneurs Docker.
-
+__________________
 ### Pré-requis
 - docker
 - docker-compose
-
+__________________
 ### Installation 
 Clonage du dépôt 
 ```bash
@@ -22,8 +22,7 @@ docker-compose logs
 ```
 Le serveur est aussi accessible dans le navigateur à:
 ``` http://localhost:8080 ```
-
+__________________
 ### Sources
-
 https://golang.org  
 https://golang.io/
