@@ -7,22 +7,10 @@ import (
   "net/http/httputil"
 )
 
-func listen(send http.ResponseWriter, request *http.Request) {
-  dump, err := httputil.DumpRequest(request, true)
-  if err != nil {
-    http.Error(send, fmt.Sprint(err), http.StatusInternalServerError)
-    os.Exit(1)
-  }
+type RequestHandler struct{}
+/* Inspect requests */
+func (handler RequestHandler) ServeHTTP(send http.ResponseWriter, request *http.Request) {
   inspect(request)
-  fmt.Fprintf(send, "%q", dump)
-}
-
-func main() {
-  http.HandleFunc("/", listen)
-  err := http.ListenAndServe(":8080", nil)
-  if err != nil {
-    os.Exit(1)
-  }
 }
 
 func inspect(request *http.Request) {
@@ -35,3 +23,44 @@ func inspect(request *http.Request) {
   fmt.Println("     Referer : ", request.Header["Referer"])
   fmt.Println(">>>  Request-Body ", request.Body)
 }
+
+func helloHandler(handler http.Handler) http.Handler {
+  return http.HandlerFunc(
+    func(send http.ResponseWriter, request *http.Request) {
+      send.Write([]byte("<h1>Ahoy !!</h1>"))
+      handler.ServeHTTP(send, request)
+    })
+}
+
+func infoHandler(handler http.Handler) http.Handler {
+  return http.HandlerFunc(
+    func(send http.ResponseWriter, request *http.Request) {
+    dump, err := httputil.DumpRequest(request, true)
+    if err != nil {
+      http.Error(send, fmt.Sprint(err), http.StatusInternalServerError)
+      os.Exit(1)
+    }
+    fmt.Fprintf(send, "%q", dump)
+  })
+}
+
+func main() {
+  server := http.NewServeMux()
+
+  /* routes */
+  server.Handle("/", helloHandler(http.Handler(&RequestHandler{})))
+  server.Handle("/info", infoHandler(http.Handler(&RequestHandler{})))
+
+  /* listen */
+  err := http.ListenAndServe(":8080", server)
+  if err != nil {
+    os.Exit(1)
+  }
+}
+
+
+
+
+
+
+
