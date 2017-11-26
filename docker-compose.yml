@@ -4,3 +4,10 @@ server:
   ports:
     - "8080:8080"
     
+client:
+  build: src/
+  dockerfile: ${GOPATH}/src/gold-ecstasy/src/docker-config/dockerfiles/dockerfile-client
+  ports:
+   - "31337:8080"
+  links:
+   - server

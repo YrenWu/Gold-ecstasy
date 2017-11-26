@@ -18,7 +18,7 @@ const userAgent = "The Good, The Bad & The Ugly"
 func main() {
     /* HTTP Client */
     client := &http.Client{}
-    response, header := post("http://localhost:8080", client)
+    response, header := post("http://server:8080", client)
     fmt.Println(response)
     fmt.Printf("%s\n\n", header)
 }

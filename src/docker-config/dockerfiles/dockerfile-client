@@ -1,0 +1,15 @@
+# GOPATH by default : /go.
+FROM golang
+ 
+# Copy files in container
+COPY ./client /go/src/client  
+ 
+# Conpilation 
+RUN go install client
+
+# Entrypoint of our client
+ENTRYPOINT /go/bin/client
+
+# Port 31337
+EXPOSE 31337
+
