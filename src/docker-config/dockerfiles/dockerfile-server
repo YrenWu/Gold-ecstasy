@@ -1,0 +1,15 @@
+# GOPATH by default : /go.
+FROM golang
+ 
+# Copy files in container
+COPY ./server /go/src/server  
+ 
+# Conpilation 
+RUN go install server
+
+# Entrypoint of our server
+ENTRYPOINT /go/bin/server
+
+# Port 8080
+EXPOSE 8080
+

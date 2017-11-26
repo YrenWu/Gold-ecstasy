@@ -1,0 +1,6 @@
+server:
+  build: src/
+  dockerfile: ${GOPATH}/src/gold-ecstasy/src/docker-config/dockerfiles/dockerfile-server
+  ports:
+    - "8080:8080"
+    
