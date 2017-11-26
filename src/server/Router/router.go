@@ -5,13 +5,23 @@ import (
 	"os"
 	"fmt"
 	"net/http/httputil"
+	"html/template"
 )
+
+const TEMPLATEPATH = "/home/ouombette/go/src/gold-ecstasy/src/server/Template/"
 
 func HomeHandler(handler http.Handler) http.Handler {
   return http.HandlerFunc(
     func(send http.ResponseWriter, request *http.Request) {
-      send.Write([]byte("<h1>Ahoy !!</h1>"))
-      handler.ServeHTTP(send, request)
+      tmpl, err := template.ParseFiles(TEMPLATEPATH + "hello.html")
+      if err != nil {
+        http.Error(send, err.Error(), http.StatusInternalServerError)
+        return
+      }
+      if err := tmpl.Execute(send, nil); err != nil {
+        http.Error(send, err.Error(), http.StatusInternalServerError)
+      }
+      handler.ServeHTTP(send, request) // call internal handler
     })
 }
 

@@ -10,7 +10,6 @@ import (
 
 func main() {
   server := http.NewServeMux()
-
   /* routes */
   server.Handle("/", Router.HomeHandler(http.Handler(&Daemon.RequestHandler{})))
   server.Handle("/info", Router.InfoHandler(http.Handler(&Daemon.RequestHandler{})))
