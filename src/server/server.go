@@ -44,8 +44,6 @@ func infoHandler(handler http.Handler) http.Handler {
   })
 }
 
-  
-
 func main() {
   server := http.NewServeMux()
 
