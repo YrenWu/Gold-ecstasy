@@ -5,6 +5,7 @@ __________________
 ### Pré-requis
 - docker
 - docker-compose
+- go
 __________________
 ### Installation 
 Clonage du dépôt 
