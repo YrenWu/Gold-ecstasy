@@ -6,14 +6,16 @@ import (
 	"fmt"
 	"net/http/httputil"
 	"html/template"
+  "path/filepath"
 )
 
-const TEMPLATEPATH = "/home/ouombette/go/src/gold-ecstasy/src/server/Template/"
+const TEMPLATEPATH = "/Template/"
 
 func HomeHandler(handler http.Handler) http.Handler {
   return http.HandlerFunc(
-    func(send http.ResponseWriter, request *http.Request) {
-      tmpl, err := template.ParseFiles(TEMPLATEPATH + "hello.html")
+    func(send http.ResponseWriter, request *http.Request) {    
+      absPath, _ := filepath.Abs("../gold-ecstasy/src/server" + TEMPLATEPATH)
+      tmpl, err := template.ParseFiles(absPath + "/hello.html")
       if err != nil {
         http.Error(send, err.Error(), http.StatusInternalServerError)
         return
